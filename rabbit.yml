@@ -1,9 +1,9 @@
-# A quick database environment setup with a postgres database and pgadmin web client
+# A quick message broker environment setup with rabbitmq message broker and a Rabbit management web client
 
 # Docker compose file version
 version: "3.9"
 
-# All the Redis setup related services
+# All the Rabbit setup related services
 services:
   # The Rabbitmq messaging service running on container port 5672 and published port value comes from .env file
   rabbit-messaging-server:

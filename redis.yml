@@ -1,4 +1,4 @@
-# A quick database environment setup with a postgres database and pgadmin web client
+# A quick application cache environment setup with a redis server and redis admin web client
 
 # Docker compose file version
 version: "3.9"
