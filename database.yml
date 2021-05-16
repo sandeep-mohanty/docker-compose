@@ -1,0 +1,33 @@
+# A quick database environment setup with a postgres database and pgadmin web client
+
+# Docker compose file version
+version: "3.9"
+
+# All the DB setup related services
+services:
+  # The postgres database service running on container port 5432 and published port value comes from .env file
+  # Environment variables are not set here. All those values come from the configured env_file
+  postgreSQL-database:
+    image: "postgres:alpine"
+    restart: "always"
+    ports:
+      - "${POSTGRES_PUBLISHED_PORT}:5432"
+    env_file:
+      - ./postgres.env
+    networks:
+      - dev-local
+  
+  # The http based pgadmin client for postgres database accessed running in container port 80
+  # Published port id configurable. Published port value comes from .env file
+  # Environment variables are not set here. All those values come from the configured env_file
+  pgadmin-management-console:
+    image: "dpage/pgadmin4:latest"
+    restart: "always"
+    ports:
+      - "${DOCKER_HOST_IP}:${PGADMIN_PUBLISHED_PORT}:80"
+    depends_on:
+      - "postgreSQL-database"
+    networks:
+      - dev-local
+    env_file:
+      - ./pg_admin.env

@@ -1,0 +1,8 @@
+# A quick insfrastructure setup (networks, volumes etc)
+
+# Docker compose file version
+version: "3.5"
+
+# Network to be used in local development setup
+networks:
+  dev-local:

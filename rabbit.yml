@@ -1,0 +1,18 @@
+# A quick database environment setup with a postgres database and pgadmin web client
+
+# Docker compose file version
+version: "3.9"
+
+# All the Redis setup related services
+services:
+  # The Rabbitmq messaging service running on container port 5672 and published port value comes from .env file
+  rabbit-messaging-server:
+    image: "rabbitmq:3.8.16-management-alpine"
+    restart: "always"
+    ports:
+      - "${RABBIT_PUBLISHED_PORT}:5672"
+      - "${RABBIT_MANAGEMENT_PUBLISHED_PORT}:15672"
+    networks:
+      - dev-local
+    env_file:
+      - ./rabbit_messaging.env

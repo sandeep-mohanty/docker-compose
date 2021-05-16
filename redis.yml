@@ -1,0 +1,30 @@
+# A quick database environment setup with a postgres database and pgadmin web client
+
+# Docker compose file version
+version: "3.9"
+
+# All the Redis setup related services
+services:
+  # The redis cache/DB/messaging service running on container port 6379 and published port value comes from .env file
+  redis-cache-server:
+    image: "redis:6.2.3-alpine"
+    restart: "always"
+    ports:
+      - "${REDIS_PUBLISHED_PORT}:6379"
+    networks:
+      - dev-local
+  
+  # The http based redis client for redis server accessed running in container port 8081
+  # Published port id configurable. Published port value comes from .env file
+  # Environment variables are not set here. All those values come from the configured env_file
+  redis-management-admin:
+    image: "rediscommander/redis-commander:latest"
+    restart: "always"
+    ports:
+      - "${DOCKER_HOST_IP}:${REDIS_ADMIN_PUBLISHED_PORT}:8081"
+    depends_on:
+      - "redis-cache-server"
+    networks:
+      - dev-local
+    env_file:
+      - ./redis_admin.env
