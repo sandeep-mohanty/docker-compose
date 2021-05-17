@@ -1,0 +1,32 @@
+# A quick application NOSQL document database environment setup with a mongodb server and mongo admin web client
+
+# Docker compose file version
+version: "3.9"
+
+# All the mongodb setup related services
+services:
+  # The mongo document db service running on container port 27017 and published port value comes from .env file
+  mongo-document-server:
+    image: "mongo:4.4.6-bionic"
+    restart: "always"
+    ports:
+      - "${MONGO_PUBLISHED_PORT}:27017"
+    networks:
+      - dev-local
+    env_file:
+      - ./mongo.env
+  
+  # The http based mongo express client for mongo db server accessed running in container port 8081
+  # Published port id configurable. Published port value comes from .env file
+  # Environment variables are not set here. All those values come from the configured env_file
+  mongo-express-management:
+    image: "mongo-express:0.54.0"
+    restart: "always"
+    ports:
+      - "${DOCKER_HOST_IP}:${MONGO_EXPRESS_PUBLISHED_PORT}:8081"
+    depends_on:
+      - "mongo-document-server"
+    networks:
+      - dev-local
+    env_file:
+      - ./mongo-express.env

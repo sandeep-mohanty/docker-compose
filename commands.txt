@@ -1,10 +1,10 @@
 # Normal Mode
-docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml up
-docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml down
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml up
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml down
 
 # De-attached Mode
-docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml up -d
-docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml down -d
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml up -d
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml down -d
 
 # Connecting to remote docker host
 DOCKER_HOST=tcp://100.115.36.77:2375 && export DOCKER_HOST
