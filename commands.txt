@@ -8,3 +8,7 @@ docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.y
 
 # Connecting to remote docker host
 DOCKER_HOST=tcp://100.115.36.77:2375 && export DOCKER_HOST
+
+# Special Mode
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml -f loadbalancer.yml up
+docker-compose -f base.yml -f database.yml -f redis.yml -f rabbit.yml -f mongo.yml -f loadbalancer.yml down

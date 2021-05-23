@@ -1,0 +1,23 @@
+# A quick loadbalancer environment setup with haproxy
+
+# Docker compose file version
+version: "3.9"
+
+# haproxy service related details
+services:
+  # The haproxy running on port 8080 and published port value comes from .env file
+  haproxy-loadbalancer:
+    build:
+      context: ./haproxy
+      dockerfile: haproxy-dockerfile
+    image: haproxy:local-customized
+    restart: "always"
+    ports:
+      - "${DOCKER_HOST_IP}:${HAPROXY_PUBLISHED_PORT}:8080"
+    networks:
+      - dev-local
+    depends_on:
+      - "pgadmin-management-console"
+      - "redis-management-admin"
+      - "rabbit-messaging-server"
+      - "mongo-express-management"
