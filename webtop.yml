@@ -1,0 +1,21 @@
+# A quick linux desktop setup environment to be accessed from browser
+
+# Docker compose file version
+version: "3.9"
+
+# Linux webtop setup server
+services:
+  # Linux webtop desktop environment accessible at port 6000
+  linux-webtop-server:
+    image: "ghcr.io/linuxserver/webtop:alpine-mate"
+    container_name: webtop
+    privileged: true #optional
+    env_file:
+      - ./webtop.env
+    volumes:
+      - /path/to/data:/config
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+    ports:
+      - "${DOCKER_HOST_IP}:${LINUX_WEBTOP_PUBLISHED_PORT}:3000"
+    shm_size: "10gb" #optional
+    restart: unless-stopped
